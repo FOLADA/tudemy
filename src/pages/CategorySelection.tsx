@@ -37,10 +37,10 @@ const CategorySelection = () => {
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto py-12">
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 px-4">
             Choose Your Category
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg md:text-xl text-muted-foreground px-4">
             {userRole === "creator" 
               ? "Select the category where you'll share your expertise" 
               : "Pick a category to explore and learn from"
@@ -48,11 +48,11 @@ const CategorySelection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((category, index) => (
+        <div className="flex overflow-x-auto pb-4 gap-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible">
+          {categories.slice(0, 5).map((category, index) => (
             <Card
               key={category.id}
-              className={`p-6 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 animate-fade-in ${
+              className={`min-w-[280px] md:min-w-0 p-6 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 animate-fade-in ${
                 selectedCategory === category.id 
                   ? "border-primary bg-primary/5" 
                   : "border-border hover:border-primary/50"

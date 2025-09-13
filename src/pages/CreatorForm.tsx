@@ -60,19 +60,19 @@ const CreatorForm = () => {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md p-8 text-center animate-scale-in">
-          <div className="w-16 h-16 mx-auto mb-6 bg-green-500 rounded-full flex items-center justify-center">
-            <CheckCircle className="w-8 h-8 text-white" />
+        <Card className="w-full max-w-lg p-6 md:p-8 text-center animate-scale-in">
+          <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-6 bg-green-500 rounded-full flex items-center justify-center">
+            <CheckCircle className="w-6 h-6 md:w-8 md:h-8 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
             Course Created Successfully!
           </h2>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 px-2">
             Your course "{formData.title}" has been added to the {selectedCategory} category.
           </p>
           <Button 
             onClick={() => navigate("/feed")}
-            className="bg-gradient-primary text-white"
+            className="bg-gradient-primary text-white text-sm md:text-base"
           >
             View in Feed
           </Button>
@@ -83,20 +83,20 @@ const CreatorForm = () => {
 
   return (
     <div className="min-h-screen bg-background p-4">
-      <div className="max-w-2xl mx-auto py-8">
+      <div className="max-w-4xl mx-auto py-8">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
           <Button 
             variant="ghost" 
             onClick={() => navigate("/categories")}
-            className="hover:bg-muted"
+            className="hover:bg-muted self-start text-sm"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Create Course</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Create Course</h1>
+            <p className="text-sm md:text-base text-muted-foreground">
               Share your knowledge in the <span className="text-primary font-medium">#{selectedCategory}</span> category
             </p>
           </div>
@@ -105,11 +105,11 @@ const CreatorForm = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Video Upload */}
-          <Card className="p-6">
-            <Label htmlFor="video-upload" className="text-lg font-semibold mb-4 block">
+          <Card className="p-4 md:p-6">
+            <Label htmlFor="video-upload" className="text-base md:text-lg font-semibold mb-4 block">
               Upload Video
             </Label>
-            <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
+            <div className="border-2 border-dashed border-border rounded-lg p-6 md:p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
               <input
                 id="video-upload"
                 type="file"
@@ -118,17 +118,17 @@ const CreatorForm = () => {
                 className="hidden"
               />
               <label htmlFor="video-upload" className="cursor-pointer">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
                   {formData.videoFile ? (
-                    <Video className="w-8 h-8 text-white" />
+                    <Video className="w-6 h-6 md:w-8 md:h-8 text-white" />
                   ) : (
-                    <Upload className="w-8 h-8 text-white" />
+                    <Upload className="w-6 h-6 md:w-8 md:h-8 text-white" />
                   )}
                 </div>
-                <p className="text-foreground font-medium mb-2">
+                <p className="text-sm md:text-base text-foreground font-medium mb-2">
                   {formData.videoFile ? formData.videoFile.name : "Click to upload video"}
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground">
                   MP4, MOV, AVI up to 500MB
                 </p>
               </label>
@@ -136,9 +136,9 @@ const CreatorForm = () => {
           </Card>
 
           {/* Course Details */}
-          <Card className="p-6 space-y-4">
+          <Card className="p-4 md:p-6 space-y-4">
             <div>
-              <Label htmlFor="title" className="text-lg font-semibold">
+              <Label htmlFor="title" className="text-base md:text-lg font-semibold">
                 Course Title *
               </Label>
               <Input
@@ -151,7 +151,7 @@ const CreatorForm = () => {
             </div>
 
             <div>
-              <Label htmlFor="description" className="text-lg font-semibold">
+              <Label htmlFor="description" className="text-base md:text-lg font-semibold">
                 Description *
               </Label>
               <Textarea
@@ -159,31 +159,31 @@ const CreatorForm = () => {
                 placeholder="Describe what learners will gain from this course..."
                 value={formData.description}
                 onChange={(e) => handleInputChange("description", e.target.value)}
-                className="mt-2 min-h-32"
+                className="mt-2 min-h-24 md:min-h-32"
               />
             </div>
 
             <div>
-              <Label className="text-lg font-semibold">Category</Label>
+              <Label className="text-base md:text-lg font-semibold">Category</Label>
               <div className="mt-2 p-3 bg-muted rounded-md">
-                <span className="text-primary font-medium">#{selectedCategory}</span>
+                <span className="text-primary font-medium text-sm md:text-base">#{selectedCategory}</span>
               </div>
             </div>
           </Card>
 
           {/* Submit Button */}
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button
               type="button"
               variant="outline"
               onClick={() => navigate("/categories")}
-              className="flex-1"
+              className="flex-1 text-sm md:text-base"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="flex-1 bg-gradient-primary text-white"
+              className="flex-1 bg-gradient-primary text-white text-sm md:text-base"
             >
               Create Course
             </Button>
