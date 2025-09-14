@@ -14,7 +14,42 @@ export interface Video {
   practicalExample: string;
 }
 
-export const mockVideos: Video[] = [
+// Generate additional videos to ensure each category has at least 5 videos
+const generateAdditionalVideos = (baseVideos: Video[]): Video[] => {
+  const categories = Array.from(new Set(baseVideos.map(v => v.category)));
+  const videosByCategory: Record<string, Video[]> = {};
+  
+  // Group videos by category
+  baseVideos.forEach(video => {
+    if (!videosByCategory[video.category]) {
+      videosByCategory[video.category] = [];
+    }
+    videosByCategory[video.category].push(video);
+  });
+  
+  // Ensure each category has at least 5 videos
+  const result = [...baseVideos];
+  let idCounter = 10;
+  
+  categories.forEach(category => {
+    const categoryVideos = videosByCategory[category] || [];
+    while (categoryVideos.length < 5) {
+      // Duplicate existing videos with new IDs
+      const baseVideo = categoryVideos[categoryVideos.length % categoryVideos.length];
+      const newVideo: Video = {
+        ...baseVideo,
+        id: `${idCounter++}`,
+        title: `${baseVideo.title} - Part ${categoryVideos.length + 1}`
+      };
+      categoryVideos.push(newVideo);
+      result.push(newVideo);
+    }
+  });
+  
+  return result;
+};
+
+const baseVideos: Video[] = [
   {
     id: "1",
     title: "React Hooks Fundamentals",
@@ -89,5 +124,68 @@ export const mockVideos: Video[] = [
     },
     summary: "Master the fundamentals of color theory including the color wheel, complementary colors, and color harmony. Learn how to create mood and depth through color choices.",
     practicalExample: "Create a color palette:\n1. Choose a dominant color (60%)\n2. Select a secondary color (30%)\n3. Add an accent color (10%)\n4. Test combinations for contrast\n5. Consider color temperature and mood\n6. Apply the 60-30-10 rule in your designs"
+  },
+  // New videos for additional categories
+  {
+    id: "6",
+    title: "Shakespeare's Greatest Works",
+    author: "Prof. James Morrison",
+    category: "literature",
+    thumbnail: "/placeholder.svg",
+    duration: "18:45",
+    quiz: {
+      question: "Which play features the character Hamlet?",
+      options: ["Macbeth", "King Lear", "Hamlet", "Othello"],
+      correct: 2
+    },
+    summary: "Explore the genius of William Shakespeare through his most celebrated works. Understand the themes, characters, and literary techniques that have made his plays timeless.",
+    practicalExample: "Analyze a soliloquy:\n1. Read the text carefully\n2. Identify the main themes\n3. Note literary devices (metaphors, imagery)\n4. Consider the character's motivation\n5. Examine the language for emotional impact\n6. Connect to universal human experiences"
+  },
+  {
+    id: "7",
+    title: "Woodworking Basics: Build a Table",
+    author: "Tom Carpenter",
+    category: "diy",
+    thumbnail: "/placeholder.svg",
+    duration: "25:30",
+    quiz: {
+      question: "What's the first step in any woodworking project?",
+      options: ["Cut the wood", "Sand the surface", "Plan and measure", "Apply finish"],
+      correct: 2
+    },
+    summary: "Learn essential woodworking skills by building your first table. From selecting materials to finishing techniques, master the fundamentals of this rewarding craft.",
+    practicalExample: "Project planning:\n1. Sketch your design\n2. List required materials\n3. Calculate dimensions\n4. Prepare tools and workspace\n5. Follow safety procedures\n6. Work systematically from start to finish"
+  },
+  {
+    id: "8",
+    title: "Game Design Fundamentals",
+    author: "Alex Chen",
+    category: "gaming",
+    thumbnail: "/placeholder.svg",
+    duration: "14:22",
+    quiz: {
+      question: "What is the core loop in game design?",
+      options: ["Graphics rendering", "Player action → system response → feedback", "Loading screens", "Menu navigation"],
+      correct: 1
+    },
+    summary: "Discover the principles of engaging game design. Learn about core loops, player motivation, and how to create compelling gameplay experiences.",
+    practicalExample: "Design a core loop:\n1. Define player actions\n2. Determine system responses\n3. Provide meaningful feedback\n4. Create progression systems\n5. Test for engagement\n6. Iterate based on player experience"
+  },
+  {
+    id: "9",
+    title: "Time Management Mastery",
+    author: "Lisa Rodriguez",
+    category: "productivity",
+    thumbnail: "/placeholder.svg",
+    duration: "11:55",
+    quiz: {
+      question: "What does the Eisenhower Matrix help with?",
+      options: ["Task prioritization", "Financial planning", "Exercise routines", "Diet management"],
+      correct: 0
+    },
+    summary: "Transform your productivity with proven time management techniques. Learn to prioritize effectively, eliminate distractions, and achieve more in less time.",
+    practicalExample: "Apply the 2-minute rule:\n1. Identify small tasks\n2. If it takes less than 2 minutes, do it now\n3. Otherwise, schedule or delegate\n4. Use time-blocking for focused work\n5. Take regular breaks\n6. Review and adjust your system"
   }
 ];
+
+export const mockVideos: Video[] = generateAdditionalVideos(baseVideos);

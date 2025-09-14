@@ -2,17 +2,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Code, ChefHat, Brain, Music, Palette, Camera, Dumbbell, Globe } from "lucide-react";
+import { Code, ChefHat, Brain, Music, Palette, Camera, Dumbbell, Globe, BookOpen, Wrench, Gamepad2, Zap, ArrowLeft } from "lucide-react";
 
 const categories = [
-  { id: "programming", name: "Programming", icon: Code, color: "bg-primary" },
-  { id: "cooking", name: "Cooking", icon: ChefHat, color: "bg-secondary" },
-  { id: "philosophy", name: "Philosophy", icon: Brain, color: "bg-accent" },
-  { id: "music", name: "Music", icon: Music, color: "bg-pink" },
-  { id: "art", name: "Art", icon: Palette, color: "bg-primary" },
-  { id: "photography", name: "Photography", icon: Camera, color: "bg-secondary" },
-  { id: "fitness", name: "Fitness", icon: Dumbbell, color: "bg-accent" },
-  { id: "language", name: "Language", icon: Globe, color: "bg-pink" },
+  { id: "programming", name: "Programming", icon: Code },
+  { id: "cooking", name: "Cooking", icon: ChefHat },
+  { id: "philosophy", name: "Philosophy", icon: Brain },
+  { id: "music", name: "Music", icon: Music },
+  { id: "art", name: "Art", icon: Palette },
+  { id: "photography", name: "Photography", icon: Camera },
+  { id: "fitness", name: "Fitness", icon: Dumbbell },
+  { id: "language", name: "Language", icon: Globe },
+  { id: "literature", name: "Literature", icon: BookOpen },
+  { id: "diy", name: "DIY & Crafts", icon: Wrench },
+  { id: "gaming", name: "Gaming", icon: Gamepad2 },
+  { id: "productivity", name: "Productivity", icon: Zap },
 ];
 
 const CategorySelection = () => {
@@ -35,52 +39,51 @@ const CategorySelection = () => {
 
   return (
     <div className="min-h-screen bg-background p-4">
-      <div className="max-w-6xl mx-auto py-12">
-        <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 px-4">
-            Choose Your Category
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground px-4">
-            {userRole === "creator" 
-              ? "Select the category where you'll share your expertise" 
-              : "Pick a category to explore and learn from"
-            }
-          </p>
-        </div>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <Button 
+          variant="ghost" 
+          size="icon"
+          onClick={() => navigate("/")}
+          className="text-foreground hover:bg-muted"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
+        
+        <h1 className="text-lg font-bold text-foreground">Categories</h1>
+        
+        <div className="w-8"></div> {/* Spacer for alignment */}
+      </div>
 
-        <div className="flex overflow-x-auto pb-4 gap-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible">
-          {categories.slice(0, 5).map((category, index) => (
-            <Card
-              key={category.id}
-              className={`min-w-[280px] md:min-w-0 p-6 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 animate-fade-in ${
-                selectedCategory === category.id 
-                  ? "border-primary bg-primary/5" 
-                  : "border-border hover:border-primary/50"
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => handleCategorySelect(category.id)}
-            >
-              <div className="text-center">
-                <div className={`w-16 h-16 mx-auto mb-4 ${category.color} rounded-full flex items-center justify-center transition-transform duration-300 hover:rotate-12`}>
-                  <category.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  {category.name}
-                </h3>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            onClick={() => navigate("/")}
-            className="text-muted-foreground hover:text-foreground"
+      {/* Category Grid - Smaller cards */}
+      <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+        {categories.map((category, index) => (
+          <Card
+            key={category.id}
+            className={`aspect-square flex flex-col items-center justify-center p-2 cursor-pointer transition-all duration-200 border border-border hover:border-primary ${
+              selectedCategory === category.id 
+                ? "border-primary bg-primary/10" 
+                : "bg-card"
+            }`}
+            onClick={() => handleCategorySelect(category.id)}
           >
-            ← Back to Role Selection
-          </Button>
-        </div>
+            <div className="w-8 h-8 mb-1 bg-primary rounded-lg flex items-center justify-center">
+              <category.icon className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <h3 className="text-xs font-medium text-center text-foreground leading-tight">
+              {category.name}
+            </h3>
+          </Card>
+        ))}
+      </div>
+
+      {/* Role Info */}
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          {userRole === "creator" 
+            ? "Select a category to share your expertise" 
+            : "Choose a category to start learning"}
+        </p>
       </div>
     </div>
   );

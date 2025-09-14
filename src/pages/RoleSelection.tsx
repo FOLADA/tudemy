@@ -18,52 +18,56 @@ const RoleSelection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 overflow-hidden">
-      <div className="w-full max-w-4xl text-center animate-fade-in">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4 break-words">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-md text-center">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Tudemy
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 px-4">
-            Welcome to the future of learning! Choose your path:
+          <p className="text-base text-muted-foreground mb-6">
+            Welcome to the future of learning!
           </p>
-          <h2 className="text-2xl md:text-3xl font-semibold text-foreground px-4">
+          <h2 className="text-lg font-semibold text-foreground">
             Are you a Course Creator or a Learner?
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col gap-4">
           <Card 
-            className={`p-8 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 ${
-              selectedRole === "creator" ? "border-secondary bg-secondary/5" : "border-border hover:border-secondary/50"
+            className={`p-4 cursor-pointer transition-all duration-200 border border-border hover:border-primary ${
+              selectedRole === "creator" ? "border-primary bg-primary/10" : "bg-card"
             }`}
             onClick={() => handleRoleSelect("creator")}
           >
-            <div className="text-center">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-primary rounded-full flex items-center justify-center">
-                <GraduationCap className="w-12 h-12 text-white" />
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-primary-foreground" />
               </div>
-               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Course Creator</h3>
-               <p className="text-sm md:text-base text-muted-foreground px-2">
-                 Share your knowledge and create engaging educational content for learners worldwide.
-               </p>
+              <div className="text-left">
+                <h3 className="text-base font-bold text-foreground mb-1">Course Creator</h3>
+                <p className="text-sm text-muted-foreground">
+                  Share your knowledge and create engaging educational content.
+                </p>
+              </div>
             </div>
           </Card>
 
           <Card 
-            className={`p-8 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 ${
-              selectedRole === "learner" ? "border-accent bg-accent/5" : "border-border hover:border-accent/50"
+            className={`p-4 cursor-pointer transition-all duration-200 border border-border hover:border-primary ${
+              selectedRole === "learner" ? "border-primary bg-primary/10" : "bg-card"
             }`}
             onClick={() => handleRoleSelect("learner")}
           >
-            <div className="text-center">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-accent rounded-full flex items-center justify-center">
-                <BookOpen className="w-12 h-12 text-white" />
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-primary-foreground" />
               </div>
-               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Learner</h3>
-               <p className="text-sm md:text-base text-muted-foreground px-2">
-                 Discover new skills through interactive videos, quizzes, and practical examples.
-               </p>
+              <div className="text-left">
+                <h3 className="text-base font-bold text-foreground mb-1">Learner</h3>
+                <p className="text-sm text-muted-foreground">
+                  Discover new skills through interactive videos and quizzes.
+                </p>
+              </div>
             </div>
           </Card>
         </div>
